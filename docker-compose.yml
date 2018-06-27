@@ -1,0 +1,24 @@
+version: '2.3'
+services:
+  onlyoffice:
+    # Tweak these according to your needs.
+    mem_limit: 4g
+    cpus: 4.00
+    image: 'onlyoffice/documentserver:latest'
+    restart: always
+    stdin_open: true
+    tty: true
+    # Volumes are optional.
+    # uids and gids are for people who are using docker with user namespaces enabled.
+    #volumes:
+      # If you want to manually change the settings (i.e. secret key). The file is owned by root by default, but removing o+r causes the container to crash, so you probably want to try the onlyoffice user (uid 110, gid 114).
+      #- /var/www/onlyoffice/config/default.json:/etc/onlyoffice/documentserver/default.json
+      # Database. Must be owned by the postgres user (uid 107, gid 111).
+      #- /var/www/onlyoffice/db:/var/lib/postgresql
+      # Logs. Must be owned by the onlyoffice user.
+      #- /var/log/onlyoffice:/var/log/onlyoffice
+      # Data. Useful if you want to use https for the connection with forward facing proxy (or public). Must be owned by root.
+      #- /var/www/onlyoffice/data:/var/www/onlyoffice/Data
+    ports:
+      # Feel free to set whatever port you want to.
+      - '127.0.0.1:8016:80'
